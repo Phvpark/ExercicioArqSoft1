@@ -10,6 +10,12 @@ public class Carro {
         tanque = new TanqueCombustivel(tipoCombustivel, capacidadeTanque);
     }
 
+    public Carro(String modelo, TipoCombustivel tipoCombustivel, int consumoMotor, int consumoMotor2, int capacidadeTanque) {
+        this.modelo = modelo;
+        motor = new Motor(tipoCombustivel, consumoMotor);
+        tanque = new TanqueCombustivel(tipoCombustivel, capacidadeTanque);
+    }
+
     public String getModelo() {
         return modelo;
     }
@@ -36,14 +42,20 @@ public class Carro {
         if (tanque.getCombustivelDisponivel() >= combustivelNecessario) {
             return distancia;
         } else {
-            return tanque.getCombustivelDisponivel() * motor.getConsumo();
+            if(tanque.getCombustivelNoTanque() == TipoCombustivel.GASOLINA){
+                return tanque.getCombustivelDisponivel() * motor.getConsumo();
+            }
+            else{
+                return tanque.getCombustivelDisponivel() * motor.getConsumo2();
+            }
+            
         }
     }
 
     // Retorna true se conseguiu viajar
     public boolean viaja(int distancia) {
         if (verificaSePodeViajar(distancia) >= distancia) {
-            motor.percorre(distancia);
+            motor.percorre(distancia);            
             tanque.gasta(motor.combustivelNecessario(distancia));
             return true;
         }
