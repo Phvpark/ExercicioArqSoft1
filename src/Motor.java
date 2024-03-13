@@ -16,6 +16,9 @@ public class Motor {
         this.consumo2 = consumo2;
     }
 
+    public void setConsumo(int a){
+        consumo = a;
+    }
     public int getConsumo() {
         return this.consumo;
     }

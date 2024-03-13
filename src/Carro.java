@@ -3,6 +3,7 @@ public class Carro {
     private String modelo;
     private Motor motor;
     private TanqueCombustivel tanque;
+    private int tacometro;
 
     public Carro(String modelo, TipoCombustivel tipoCombustivel, int consumoMotor, int capacidadeTanque) {
         this.modelo = modelo;
@@ -55,7 +56,13 @@ public class Carro {
     // Retorna true se conseguiu viajar
     public boolean viaja(int distancia) {
         if (verificaSePodeViajar(distancia) >= distancia) {
-            motor.percorre(distancia);            
+            motor.percorre(distancia);    
+            tacometro =+ distancia;
+            if(motor.getConsumo()>10){
+                if(tacometro > 5000){
+                    motor.setConsumo(motor.getConsumo() - (int)(Math.floor(tacometro/5000)));
+                }
+            }            
             tanque.gasta(motor.combustivelNecessario(distancia));
             return true;
         }
